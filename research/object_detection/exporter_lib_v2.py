@@ -276,8 +276,8 @@ def export_inference_graph(input_type,
   # Getting the concrete function traces the graph and forces variables to
   # be constructed --- only after this can we save the checkpoint and
   # saved model.
-  concrete_function = detection_module.__call__.get_concrete_function()
-  status.assert_existing_objects_matched()
+  #concrete_function = detection_module.__call__.get_concrete_function()
+  #status.assert_existing_objects_matched()
 
   exported_checkpoint_manager = tf.train.CheckpointManager(
       ckpt, output_checkpoint_directory, max_to_keep=1)
@@ -285,6 +285,6 @@ def export_inference_graph(input_type,
 
   tf.saved_model.save(detection_module,
                       output_saved_model_directory,
-                      signatures=concrete_function)
+                      signatures=None)
 
   config_util.save_pipeline_config(pipeline_config, output_directory)
